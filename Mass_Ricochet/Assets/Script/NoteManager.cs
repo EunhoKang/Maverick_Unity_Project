@@ -47,8 +47,10 @@ public class NoteManager : MonoBehaviour {
 	public float NoteSpeed;
 	private WaitForSeconds FrameTime;
 	public float noteInterval=1f;
-
+	//make recycle bin
+	public GameObject recycle;
 	//Set TimeScale, Generate Judge Line
+
 	void OnEnable() {
 		FrameTime=new WaitForSeconds(noteInterval*0.01f);
 
@@ -71,6 +73,7 @@ public class NoteManager : MonoBehaviour {
 		ObjCommand=T.ObjCommand;
 		SPB=60/T.BPM;
 		StartDelay=T.StartDelay;
+		Debug.Log("All info Set");
 
 		Notes=new List<GameObject>();
 		for(int i=0; i<NotePoolCount;i++){
@@ -97,6 +100,7 @@ public class NoteManager : MonoBehaviour {
 		player=Instantiate(player,playerPos,Quaternion.identity)as GameObject;
 		playerFunc=player.GetComponent<Player>();
 
+
 		StartCoroutine(MusicStart(stagenum));
 	}
 	//Wait for some sec, Edit Objs, Edit Notes, Then Start the Game
@@ -106,7 +110,6 @@ public class NoteManager : MonoBehaviour {
 		//where notes generated	
 		for(int i=0;i<Notetime.Count;i++)
 			StartCoroutine(NoteGenerate(i));
-
 		yield return new WaitForSeconds(1f*iv);
 
 		//where obj edited
@@ -180,6 +183,7 @@ public class NoteManager : MonoBehaviour {
 
 	//Command Objs. 0 for Activate, -1 for Deactivate, else for Costom Action
 	IEnumerator CommandObj(int Timecount,int Objcount,int Mode){
+
 		if(Mode==0){
 			yield return Objtime[Timecount];
 			//change this after complete

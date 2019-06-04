@@ -18,7 +18,7 @@ public class Saw : MonoBehaviour {
 	}
 	public void Setparent_Again(){
 		//play the end animation
-		transform.SetParent(m_Parent.transform);//Bug!
+		transform.SetParent(NoteManager.instance.recycle.transform);//Bug!
 		gameObject.SetActive(false);
 	}
 	IEnumerator DuringShot(float speed){

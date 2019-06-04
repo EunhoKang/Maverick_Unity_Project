@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1384302668746208}
   m_IsPrefabAsset: 1
+--- !u!1 &1063464400898726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4027217022388040}
+  m_Layer: 0
+  m_Name: Child Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1354105224790520
 GameObject:
   m_ObjectHideFlags: 1
@@ -108,6 +123,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4027217022388040
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1063464400898726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.432029, y: -0.97443664, z: -0.10101975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4806589318362720}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4068722087057138
 Transform:
   m_ObjectHideFlags: 1
@@ -188,6 +216,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4323006665363776}
+  - {fileID: 4027217022388040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,7 +354,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f419ef63e3b97f841b255b0ff951b213, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -432,13 +461,18 @@ MonoBehaviour:
   Miss: {fileID: 1525285786885072}
   audiosource: {fileID: 82213047848776110}
   music: {fileID: 8300000, guid: f419ef63e3b97f841b255b0ff951b213, type: 3}
+  SPB: 0
+  StartDelay: 0
   _Objs: []
   Objs: []
   Objpos: []
   Objrot: []
   _Objtime: []
   _Notetime: []
+  ObjCommand: []
   NotePoolCount: 16
   NoteType: {fileID: 1520092270043924, guid: 9a99827b068c40241b9b3b8e3b1e7af7, type: 2}
   NotePos: {x: 8.8, y: 5.4, z: 0}
+  NoteSpeed: 0
   noteInterval: 1
+  recycle: {fileID: 1063464400898726}

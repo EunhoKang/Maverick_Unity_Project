@@ -37,7 +37,8 @@ public class DemoTrack : MonoBehaviour {
 	}
 	//After shot
 	void OnDisable(){
-		tr_tr.Setparent_Again();
+		if(is_shot)
+			tr_tr.Setparent_Again();
 		//Play Disable Animation on the Shotted
 	}
 	//Cache Variables-------------------------------

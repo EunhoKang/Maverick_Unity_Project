@@ -35,7 +35,8 @@ public class DemoRay : MonoBehaviour {
 	}
 	//After Shot
 	void OnDisable(){
-		ray_ray.Setparent_Again();
+		if(is_shot)
+			ray_ray.Setparent_Again();
 		//Play Disable Animation on the Shotted
 	}
 	//Cache Variables-------------------------------

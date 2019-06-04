@@ -19,7 +19,7 @@ public class Ray : MonoBehaviour {
 	}
 	public void Setparent_Again(){
 		//play the end animation
-		transform.SetParent(m_Parent.transform);
+		transform.SetParent(NoteManager.instance.recycle.transform);
 		gameObject.SetActive(false);
 	}
 	

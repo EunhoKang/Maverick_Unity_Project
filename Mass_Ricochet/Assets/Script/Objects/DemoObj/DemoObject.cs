@@ -35,7 +35,8 @@ public class DemoObject : MonoBehaviour {
 	}
 	//After Shoted
 	void OnDisable(){
-		saw_saw.Setparent_Again();
+		if(is_shot)
+			saw_saw.Setparent_Again();
 		//Play Disable Animation on the Shotted
 	}
 	//Cache Variables-------------------------------
