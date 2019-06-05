@@ -17,7 +17,7 @@ public class NoteManager : MonoBehaviour {
 	public GameObject player;
 	public Vector3 playerPos;
 	private Player playerFunc;
-	public GameObject Hp;
+	public GameObject Heart;
 	public Vector3 HpPos;
 	private GameObject Tempobj;
 	//Judge Line
@@ -30,34 +30,64 @@ public class NoteManager : MonoBehaviour {
 	public float SPB;
 	public float StartDelay;
 	//Object Pool & Data List for Game
-	public List<GameObject> _Objs=new List<GameObject>();
-	public List<GameObject> Objs=new List<GameObject>();
-	public List<Vector3> Objpos=new List<Vector3>();
-	public List<Vector3> Objrot=new List<Vector3>();
-	public List<float> _Objtime=new List<float>();
-	public List<float> _Notetime=new List<float>();
-	public List<Vector3> ObjCommand=new List<Vector3>();
-	public List<WaitForSeconds> Objtime=new List<WaitForSeconds>();
-	public List<WaitForSeconds> Notetime=new List<WaitForSeconds>();
+	public List<GameObject> _Objs;
+	public List<GameObject> Objs;
+	public List<Vector3> Objpos;
+	public List<Vector3> Objrot;
+	public List<float> _Objtime;
+	public List<float> _Notetime;
+	public List<Vector3> ObjCommand;
+	public List<WaitForSeconds> Objtime;
+	public List<WaitForSeconds> Notetime;
 	//Note Info
 	private List<GameObject> Notes;
-	public int NotePoolCount=16;
+	public int NotePoolCount;
 	public GameObject NoteType;
 	public Vector3 NotePos;
 	public float NoteSpeed;
 	private WaitForSeconds FrameTime;
-	public float noteInterval=1f;
+	public float noteInterval;
 	//make recycle bin
 	public GameObject recycle;
+	//user score
+	public int score;
+	public int amount;
+	public bool is_GameEnd;
 	//Set TimeScale, Generate Judge Line
-
 	void OnEnable() {
 		FrameTime=new WaitForSeconds(noteInterval*0.01f);
 
 		Perf.SetActive(false);
 		Good.SetActive(false);
 		Miss.SetActive(false);
+
+		NotePoolCount=10;
+		noteInterval=1f;
+		score=0;
+		is_GameEnd=false;
+		amount=10;
+
+		_Objs=new List<GameObject>();
+		Objs=new List<GameObject>();
+		Objpos=new List<Vector3>();
+		Objrot=new List<Vector3>();
+		_Objtime=new List<float>();
+		_Notetime=new List<float>();
+		ObjCommand=new List<Vector3>();
+		Objtime=new List<WaitForSeconds>();
+		Notetime=new List<WaitForSeconds>();
+		Notes=new List<GameObject>();
 		
+		_Objs.Clear();
+		Objs.Clear();
+		Objpos.Clear();
+		Objrot.Clear();
+		_Objtime.Clear();
+		_Notetime.Clear();
+		ObjCommand.Clear();
+		Objtime.Clear();
+		Notetime.Clear();
+		Notes.Clear();
 	}
 	//Receive Stage Data, Pooling Notes & Objects, Caching Datas, Instantiate Objects, Start Music
 	public void StartSetting(AudioClip stagemusic,GameObject O){
@@ -75,7 +105,6 @@ public class NoteManager : MonoBehaviour {
 		StartDelay=T.StartDelay;
 		Debug.Log("All info Set");
 
-		Notes=new List<GameObject>();
 		for(int i=0; i<NotePoolCount;i++){
 			GameObject _obj=Instantiate(NoteType);
 			_obj.SetActive(false);
@@ -96,10 +125,9 @@ public class NoteManager : MonoBehaviour {
 			Notetime.Add(new WaitForSeconds(_Notetime[i]*SPB));
 		}
 
-		Hp=Instantiate(Hp,HpPos,Quaternion.identity)as GameObject;
+		Heart=Instantiate(Heart,HpPos,Quaternion.identity)as GameObject;
 		player=Instantiate(player,playerPos,Quaternion.identity)as GameObject;
 		playerFunc=player.GetComponent<Player>();
-
 
 		StartCoroutine(MusicStart(stagenum));
 	}
@@ -124,6 +152,7 @@ public class NoteManager : MonoBehaviour {
 		yield return new WaitForSeconds(StartDelay);
 		//System.GC.Collect();
 		audiosource.Play();
+		StartCoroutine(ScoreSet());
 	}
 	//-------------------------------------------------------------------------------------
 
@@ -133,6 +162,27 @@ public class NoteManager : MonoBehaviour {
 			StartingJudge();
 		}
 	}
+	//add score
+	IEnumerator ScoreSet(){
+		int cnt=0;
+		while(!is_GameEnd){
+			score+=amount;
+			cnt++;
+			if(cnt>500){
+				cnt=0;
+				combo_manage(1);
+			}
+			//Debug.Log(score);
+			yield return FrameTime;
+		}
+	}
+	public void combo_manage(int mode){
+		if(mode==0)
+			amount=10;
+		if(mode==1)
+			amount*=5;
+	}
+
 	//Move Player according to Judge
 	public void Judge(bool isPerf){
 		if(isPerf){
@@ -143,7 +193,6 @@ public class NoteManager : MonoBehaviour {
 	}
 	//Judging the Note
 	public void StartingJudge(){
-
 		StartCoroutine(DuringJudge());
 	}
 	IEnumerator DuringJudge(){	
@@ -166,6 +215,7 @@ public class NoteManager : MonoBehaviour {
 		Tempobj=getNote();
 		Tempobj.SetActive(true);
 		Tempobj.transform.position=NotePos;
+		Debug.Log(notecount);
 	}
 
 	//Get Note from Pool

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-	private bool invincible=false;
+	private bool invincible;
 	private Vector3 mouse;
-	private Vector3 currentVelocity;
 	private WaitForFixedUpdate tptime=new WaitForFixedUpdate();
-	private float playerHP=100;
+	void Awake(){
+		invincible=false;
+	}
 	//Send player's pos
 	void FixedUpdate() {
 		NoteManager.instance.playerPos=transform.position;
@@ -23,8 +24,9 @@ public class Player : MonoBehaviour {
 	IEnumerator Move(bool isInvincible, Vector3 target){
 		if(isInvincible)
 			invincible=true;
-		for(int i=1;i<=25;i++){
-			transform.position=Vector3.SmoothDamp(transform.position,target,ref currentVelocity,0.04f*i);
+		for(int i=1;i<=8;i++){
+			transform.position=Vector3.Lerp(transform.position,target,0.125f*i);
+			//transform.position=Vector3.SmoothDamp(transform.position,target,ref currentVelocity,0.04f*i);
 			yield return tptime;
 		}
 		invincible=false;
@@ -32,8 +34,7 @@ public class Player : MonoBehaviour {
 	//if hit by obj, reduce hp
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.CompareTag("Enemy")){
-			playerHP-=10f;
-			Debug.Log(playerHP);
+			NoteManager.instance.combo_manage(0);
 		}
 	}
 }

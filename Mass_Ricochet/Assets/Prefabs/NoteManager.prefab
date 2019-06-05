@@ -173,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525285786885072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4323006665363776}
@@ -186,7 +186,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1354105224790520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4323006665363776}
@@ -199,7 +199,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662847358278882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4323006665363776}
@@ -243,7 +243,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 1}
+  m_Size: {x: 0.3, y: 1}
   m_EdgeRadius: 0
 --- !u!61 &61446925256371772
 BoxCollider2D:
@@ -318,7 +318,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 1}
+  m_Size: {x: 0.3, y: 1}
   m_EdgeRadius: 0
 --- !u!61 &61833005098149860
 BoxCollider2D:
@@ -332,7 +332,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.2, y: 0}
+  m_Offset: {x: 0.8, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -343,7 +343,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 1}
+  m_Size: {x: 0.3, y: 1}
   m_EdgeRadius: 0
 --- !u!82 &82213047848776110
 AudioSource:
@@ -354,7 +354,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f419ef63e3b97f841b255b0ff951b213, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -454,25 +454,187 @@ MonoBehaviour:
   stagenum: 0
   player: {fileID: 1582149705000342, guid: 3f48c6d9d99ce2241b9d12425890f0f1, type: 2}
   playerPos: {x: 0, y: 0, z: 0}
-  Hp: {fileID: 1393722643638688, guid: 147e610be79c4e547aefa9f2b1b0c18a, type: 2}
+  Heart: {fileID: 1393722643638688, guid: 147e610be79c4e547aefa9f2b1b0c18a, type: 2}
   HpPos: {x: 8.8, y: -4.6, z: 0}
   Perf: {fileID: 1529708590401572}
   Good: {fileID: 1662847358278882}
   Miss: {fileID: 1525285786885072}
   audiosource: {fileID: 82213047848776110}
   music: {fileID: 8300000, guid: f419ef63e3b97f841b255b0ff951b213, type: 3}
-  SPB: 0
-  StartDelay: 0
-  _Objs: []
-  Objs: []
-  Objpos: []
-  Objrot: []
-  _Objtime: []
-  _Notetime: []
-  ObjCommand: []
+  SPB: 1.8461539
+  StartDelay: 0.9
+  _Objs:
+  - {fileID: 1037146154816764, guid: 53d6d9d9e0038744597e9771f076c482, type: 2}
+  - {fileID: 1037146154816764, guid: 53d6d9d9e0038744597e9771f076c482, type: 2}
+  - {fileID: 1037146154816764, guid: 53d6d9d9e0038744597e9771f076c482, type: 2}
+  - {fileID: 1037146154816764, guid: 53d6d9d9e0038744597e9771f076c482, type: 2}
+  - {fileID: 1037146154816764, guid: 92a1cbd09893f50498151fb119447cbe, type: 2}
+  - {fileID: 1037146154816764, guid: dccb59d17cbb6864681c77ddd58021bf, type: 2}
+  - {fileID: 1037146154816764, guid: 92a1cbd09893f50498151fb119447cbe, type: 2}
+  - {fileID: 1037146154816764, guid: 92a1cbd09893f50498151fb119447cbe, type: 2}
+  Objs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Objpos:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  Objrot:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  _Objtime:
+  - 1.625
+  - 2.5
+  - 3.625
+  - 4.5
+  - 5.625
+  - 6.5
+  - 7.625
+  - 8.5
+  - 9.625
+  - 10.5
+  - 11.625
+  - 12.5
+  - 13.625
+  - 14.5
+  - 15.625
+  - 16.5
+  - 17.625
+  - 18.375
+  - 18.625
+  - 19.375
+  _Notetime:
+  - 2.5
+  - 4.5
+  - 6.5
+  - 8.5
+  - 10.5
+  - 12.5
+  - 14.5
+  - 16.5
+  - 18.375
+  - 19.375
+  - 20.375
+  - 21.375
+  - 22.375
+  - 23.375
+  - 24.375
+  - 25.375
+  - 25.875
+  - 26.375
+  - 26.875
+  - 27.375
+  - 27.875
+  - 28.375
+  - 28.875
+  - 29.375
+  - 29.625
+  - 29.875
+  - 30.125
+  - 30.375
+  - 30.625
+  - 30.875
+  - 31.125
+  - 31.375
+  - 31.625
+  - 31.875
+  - 32.125
+  - 32.375
+  - 32.625
+  - 32.875
+  - 33.125
+  - 33.625
+  - 33.8125
+  - 34
+  - 34.1875
+  - 34.375
+  - 34.625
+  - 34.8125
+  - 35
+  - 35.1875
+  - 35.375
+  - 35.5
+  - 35.625
+  ObjCommand:
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 1}
+  - {x: 2, y: 0, z: -1}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 1}
+  - {x: 4, y: 1, z: -1}
+  - {x: 4, y: 2, z: 0}
+  - {x: 5, y: 2, z: 1}
+  - {x: 6, y: 2, z: -1}
+  - {x: 6, y: 3, z: 0}
+  - {x: 7, y: 3, z: 1}
+  - {x: 8, y: 3, z: -1}
+  - {x: 8, y: 4, z: 0}
+  - {x: 9, y: 4, z: 1}
+  - {x: 10, y: 4, z: -1}
+  - {x: 10, y: 5, z: 0}
+  - {x: 11, y: 5, z: 1}
+  - {x: 12, y: 5, z: -1}
+  - {x: 12, y: 6, z: 0}
+  - {x: 13, y: 6, z: 1}
+  - {x: 14, y: 6, z: -1}
+  - {x: 14, y: 7, z: 0}
+  - {x: 15, y: 7, z: 1}
+  - {x: 16, y: 7, z: -1}
   NotePoolCount: 16
   NoteType: {fileID: 1520092270043924, guid: 9a99827b068c40241b9b3b8e3b1e7af7, type: 2}
   NotePos: {x: 8.8, y: 5.4, z: 0}
-  NoteSpeed: 0
+  NoteSpeed: 8
   noteInterval: 1
   recycle: {fileID: 1063464400898726}
+  score: 0
+  amount: 0
+  is_GameEnd: 0
