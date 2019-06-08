@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class NoteManager : MonoBehaviour {
 	//Singletone
 	public int stagenum;
@@ -39,6 +39,7 @@ public class NoteManager : MonoBehaviour {
 	public List<Vector3> ObjCommand;
 	public List<WaitForSeconds> Objtime;
 	public List<WaitForSeconds> Notetime;
+	public List<Vector3> RandomPlace;
 	//Note Info
 	private List<GameObject> Notes;
 	public int NotePoolCount;
@@ -52,7 +53,12 @@ public class NoteManager : MonoBehaviour {
 	//user score
 	public int score;
 	public int amount;
+	public int combo_time;
 	public bool is_GameEnd;
+	//UI
+	public GameObject Canvas;
+	public Text scoreText;
+	public Text diffText;
 	//Set TimeScale, Generate Judge Line
 	void OnEnable() {
 		FrameTime=new WaitForSeconds(noteInterval*0.01f);
@@ -65,7 +71,8 @@ public class NoteManager : MonoBehaviour {
 		noteInterval=1f;
 		score=0;
 		is_GameEnd=false;
-		amount=10;
+		amount=1;
+		combo_time=0;
 
 		_Objs=new List<GameObject>();
 		Objs=new List<GameObject>();
@@ -77,7 +84,8 @@ public class NoteManager : MonoBehaviour {
 		Objtime=new List<WaitForSeconds>();
 		Notetime=new List<WaitForSeconds>();
 		Notes=new List<GameObject>();
-		
+		RandomPlace=new List<Vector3>();
+
 		_Objs.Clear();
 		Objs.Clear();
 		Objpos.Clear();
@@ -88,6 +96,7 @@ public class NoteManager : MonoBehaviour {
 		Objtime.Clear();
 		Notetime.Clear();
 		Notes.Clear();
+		RandomPlace.Clear();
 	}
 	//Receive Stage Data, Pooling Notes & Objects, Caching Datas, Instantiate Objects, Start Music
 	public void StartSetting(AudioClip stagemusic,GameObject O){
@@ -101,6 +110,11 @@ public class NoteManager : MonoBehaviour {
 		_Notetime=T.Notetime;
 		NoteSpeed=T.Notespeed;
 		ObjCommand=T.ObjCommand;
+		RandomPlace=T.Randomplace;
+		for(int i=0;i<Objpos.Count;i++){
+			Objpos[i]=RandomPlace[Random.Range(0,RandomPlace.Count)];
+		}
+		
 		SPB=60/T.BPM;
 		StartDelay=T.StartDelay;
 		Debug.Log("All info Set");
@@ -164,25 +178,58 @@ public class NoteManager : MonoBehaviour {
 	}
 	//add score
 	IEnumerator ScoreSet(){
-		int cnt=0;
 		while(!is_GameEnd){
 			score+=amount;
-			cnt++;
-			if(cnt>500){
-				cnt=0;
-				combo_manage(1);
+			combo_time++;
+			show_scorein_UI();
+			if(combo_time>500){
+				combo_time=0;
+				if(amount<=625)
+					combo_manage(1);
 			}
 			//Debug.Log(score);
 			yield return FrameTime;
 		}
 	}
 	public void combo_manage(int mode){
-		if(mode==0)
-			amount=10;
-		if(mode==1)
+		if(mode==-1){
+			amount=1;
+			score-=1000;
+			combo_time=0;
+			show_diffin_UI(-1);
+		}else if(mode==0){
+			amount=1;
+			combo_time=0;
+			show_diffin_UI(0);
+		}else if(mode==1){
 			amount*=5;
+			show_diffin_UI(1);
+		}
 	}
-
+	public void show_scorein_UI(){
+		scoreText.text=score.ToString();
+	}
+	public void show_diffin_UI(int mode){
+		if(mode==-1){
+			diffText.text="(-1000) Miss";
+		}else if(mode==0){
+			diffText.text="(x1) Combo Break";
+		}else if(mode==1){
+			if(amount==5){
+				diffText.text="(x5) Combo LV 2";
+			}else if(amount==25){
+				diffText.text="(x25) Combo LV 3";
+			}else if(amount==125){
+				diffText.text="(x125) Combo LV 4";
+			}else if(amount==625){
+				diffText.text="(x625) Combo LV MAX";
+			}
+		}
+		Invoke("reset_diffin_UI",2f);
+	}
+	public void reset_diffin_UI(){
+		diffText.text=null;
+	}
 	//Move Player according to Judge
 	public void Judge(bool isPerf){
 		if(isPerf){
@@ -215,7 +262,6 @@ public class NoteManager : MonoBehaviour {
 		Tempobj=getNote();
 		Tempobj.SetActive(true);
 		Tempobj.transform.position=NotePos;
-		Debug.Log(notecount);
 	}
 
 	//Get Note from Pool

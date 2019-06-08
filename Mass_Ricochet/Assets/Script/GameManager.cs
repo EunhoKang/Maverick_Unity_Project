@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
 	private NoteManager notemanager;
 	public AudioClip[] musics;
 	public List<GameObject> stages=new List<GameObject>();
-
 	//Generate NoteManager, Send Data to it
 	void Awake ()
     {

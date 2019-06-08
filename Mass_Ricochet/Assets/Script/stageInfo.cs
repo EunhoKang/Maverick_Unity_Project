@@ -15,4 +15,6 @@ public class stageInfo : MonoBehaviour {
 	[Header("#BPM")]
 	public float BPM;
 	public float StartDelay;
+	[Header("#RandomPlace")]
+	public List<Vector3> Randomplace=new List<Vector3>();
 }

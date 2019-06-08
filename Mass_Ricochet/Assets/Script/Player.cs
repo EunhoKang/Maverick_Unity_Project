@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 	//if hit by obj, reduce hp
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.CompareTag("Enemy")){
-			NoteManager.instance.combo_manage(0);
+			NoteManager.instance.combo_manage(-1);
 		}
 	}
 }

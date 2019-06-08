@@ -25,6 +25,7 @@ public class Note : MonoBehaviour {
 			//Debug.Log("GOOD");
 		}else if(other.CompareTag("Miss")){
 			gameObject.SetActive(false);
+			NoteManager.instance.combo_manage(0);
 			//Debug.Log("MISS");
 		}
 	}
