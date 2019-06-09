@@ -10,7 +10,7 @@ public class DemoRay : MonoBehaviour {
 	private WaitForFixedUpdate fix=new WaitForFixedUpdate();
 	//commands--------------------------------------
 	//1st command : shot ray
-	void Command_1(){
+	public void Command_1(){
 		is_shot=true;
 		ShotAction(0.1f);
 	}

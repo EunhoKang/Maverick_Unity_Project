@@ -64,6 +64,10 @@
      <Compile Include="Assets\Script\Objects\DemoTrack\Track.cs" />
      <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\stageInfo.cs" />
+     <None Include="Assets\Resources\S1_Objtime.txt" />
+     <None Include="Assets\Resources\S1_Notetime.txt" />
+     <None Include="Assets\Resources\S1_ObjCommand.txt" />
+     <None Include="Assets\Resources\S1_RandomPlace.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/User/Desktop/Unity/Mass_Ricochet/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

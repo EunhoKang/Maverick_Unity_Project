@@ -12,7 +12,7 @@ public class DemoTrack : MonoBehaviour {
 	private WaitForFixedUpdate fix=new WaitForFixedUpdate();
 	//commands--------------------------------------
 	//1st command : shot mid speed
-	void Command_1(){
+	public void Command_1(){
 		is_shot=true;
 		ShotAction(0.2f);
 	}

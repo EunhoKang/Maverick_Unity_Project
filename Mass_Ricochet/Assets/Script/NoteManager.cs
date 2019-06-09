@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 public class NoteManager : MonoBehaviour {
@@ -40,6 +41,10 @@ public class NoteManager : MonoBehaviour {
 	public List<WaitForSeconds> Objtime;
 	public List<WaitForSeconds> Notetime;
 	public List<Vector3> RandomPlace;
+	public string Name_Objtime;
+	public string Name_Notetime;
+	public string Name_ObjCommand;
+	public string Name_RandomPlace;
 	//Note Info
 	private List<GameObject> Notes;
 	public int NotePoolCount;
@@ -56,7 +61,6 @@ public class NoteManager : MonoBehaviour {
 	public int combo_time;
 	public bool is_GameEnd;
 	//UI
-	public GameObject Canvas;
 	public Text scoreText;
 	public Text diffText;
 	//Set TimeScale, Generate Judge Line
@@ -104,20 +108,55 @@ public class NoteManager : MonoBehaviour {
 		audiosource.clip=music;
 		stageInfo T=O.GetComponent<stageInfo>();
 		_Objs=T.Objs;
-		Objpos=T.Objpos;
-		Objrot=T.Objrot;
-		_Objtime=T.Objtime;
-		_Notetime=T.Notetime;
 		NoteSpeed=T.Notespeed;
-		ObjCommand=T.ObjCommand;
-		RandomPlace=T.Randomplace;
-		for(int i=0;i<Objpos.Count;i++){
-			Objpos[i]=RandomPlace[Random.Range(0,RandomPlace.Count)];
+		Name_Notetime=T.Name_Notetime;
+		Name_ObjCommand=T.Name_ObjCommand;
+		Name_Objtime=T.Name_Objtime;
+		Name_RandomPlace=T.Name_RandomPlace;
+		
+		TextAsset textAsset= Resources.Load<TextAsset>(Name_Notetime);
+		StringReader reader=new StringReader(textAsset.text);
+		int Max=int.Parse(reader.ReadLine());
+		for(int i=0;i<Max;i++){
+			_Notetime.Add(float.Parse(reader.ReadLine()));
+		}
+		textAsset= Resources.Load<TextAsset>(Name_Objtime);
+		reader=new StringReader(textAsset.text);
+		Max=int.Parse(reader.ReadLine());
+		for(int i=0;i<Max;i++){
+			_Objtime.Add(float.Parse(reader.ReadLine()));
+		}
+		textAsset= Resources.Load<TextAsset>(Name_ObjCommand);
+		reader=new StringReader(textAsset.text);
+		Max=int.Parse(reader.ReadLine());
+		string temp;
+		string[] temps;
+		Vector3 tempVec=new Vector3(0,0,0);
+		for(int i=0;i<Max;i++){
+			temp=reader.ReadLine();
+			temps=temp.Split(' ');
+			tempVec.x=float.Parse(temps[0]);
+			tempVec.y=float.Parse(temps[1]);
+			tempVec.z=float.Parse(temps[2]);
+			ObjCommand.Add(tempVec);
+		}
+		textAsset= Resources.Load<TextAsset>(Name_RandomPlace);
+		reader=new StringReader(textAsset.text);
+		Max=int.Parse(reader.ReadLine());
+		for(int i=0;i<Max;i++){
+			temp=reader.ReadLine();
+			temps=temp.Split(' ');
+			tempVec.x=float.Parse(temps[0]);
+			tempVec.y=float.Parse(temps[1]);
+			tempVec.z=float.Parse(temps[2]);
+			RandomPlace.Add(tempVec);
 		}
 		
+		for(int i=0;i<ObjCommand.Count;i++){
+			Objpos.Add(RandomPlace[Random.Range(0,RandomPlace.Count)]);
+		}	
 		SPB=60/T.BPM;
 		StartDelay=T.StartDelay;
-		Debug.Log("All info Set");
 
 		for(int i=0; i<NotePoolCount;i++){
 			GameObject _obj=Instantiate(NoteType);
@@ -142,7 +181,8 @@ public class NoteManager : MonoBehaviour {
 		Heart=Instantiate(Heart,HpPos,Quaternion.identity)as GameObject;
 		player=Instantiate(player,playerPos,Quaternion.identity)as GameObject;
 		playerFunc=player.GetComponent<Player>();
-
+		
+		Debug.Log("All info Set");
 		StartCoroutine(MusicStart(stagenum));
 	}
 	//Wait for some sec, Edit Objs, Edit Notes, Then Start the Game
@@ -242,7 +282,7 @@ public class NoteManager : MonoBehaviour {
 	public void StartingJudge(){
 		StartCoroutine(DuringJudge());
 	}
-	IEnumerator DuringJudge(){	
+	IEnumerator DuringJudge(){
 		Perf.SetActive(true);
 		Good.SetActive(true);
 		Miss.SetActive(true);
@@ -279,13 +319,14 @@ public class NoteManager : MonoBehaviour {
 
 	//Command Objs. 0 for Activate, -1 for Deactivate, else for Costom Action
 	IEnumerator CommandObj(int Timecount,int Objcount,int Mode){
-
+		
 		if(Mode==0){
 			yield return Objtime[Timecount];
 			//change this after complete
+			//Debug.Log(Objcount);
 			Objs[Objcount].SetActive(true);
-			Objs[Objcount].transform.position=Objpos[Timecount];
-			Objs[Objcount].transform.rotation=Quaternion.Euler(Objrot[Timecount]);
+			Objs[Objcount].transform.position=RandomPlace[Random.Range(0,RandomPlace.Count)];
+			//Objs[Objcount].transform.rotation=Quaternion.Euler(Objrot[Timecount]);
 		}else if(Mode==-1){
 			yield return Objtime[Timecount];
 
