@@ -5,7 +5,7 @@ using UnityEngine;
 public class DemoTrack : MonoBehaviour {
 
 	public GameObject track;
-	public float speed=1f;
+	public float speed=0.2f;
 	private Track tr_tr;
 	private Vector3 playerrot;
 	private bool is_shot=false;
@@ -14,7 +14,7 @@ public class DemoTrack : MonoBehaviour {
 	//1st command : shot mid speed
 	public void Command_1(){
 		is_shot=true;
-		ShotAction(0.2f);
+		ShotAction(speed);
 	}
 	//Passive---------------------------------------
 	//Before shot

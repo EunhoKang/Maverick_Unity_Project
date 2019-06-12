@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Prefabs\background\BackGround.cs" />
+     <Compile Include="Assets\Prefabs\background\ColorControl.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
      <Compile Include="Assets\Script\Note.cs" />
      <Compile Include="Assets\Script\NoteManager.cs" />

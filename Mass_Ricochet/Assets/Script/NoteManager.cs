@@ -34,7 +34,6 @@ public class NoteManager : MonoBehaviour {
 	public List<GameObject> _Objs;
 	public List<GameObject> Objs;
 	public List<Vector3> Objpos;
-	public List<Vector3> Objrot;
 	public List<float> _Objtime;
 	public List<float> _Notetime;
 	public List<Vector3> ObjCommand;
@@ -81,7 +80,6 @@ public class NoteManager : MonoBehaviour {
 		_Objs=new List<GameObject>();
 		Objs=new List<GameObject>();
 		Objpos=new List<Vector3>();
-		Objrot=new List<Vector3>();
 		_Objtime=new List<float>();
 		_Notetime=new List<float>();
 		ObjCommand=new List<Vector3>();
@@ -93,7 +91,6 @@ public class NoteManager : MonoBehaviour {
 		_Objs.Clear();
 		Objs.Clear();
 		Objpos.Clear();
-		Objrot.Clear();
 		_Objtime.Clear();
 		_Notetime.Clear();
 		ObjCommand.Clear();
@@ -113,7 +110,7 @@ public class NoteManager : MonoBehaviour {
 		Name_ObjCommand=T.Name_ObjCommand;
 		Name_Objtime=T.Name_Objtime;
 		Name_RandomPlace=T.Name_RandomPlace;
-		
+
 		TextAsset textAsset= Resources.Load<TextAsset>(Name_Notetime);
 		StringReader reader=new StringReader(textAsset.text);
 		int Max=int.Parse(reader.ReadLine());
@@ -177,16 +174,17 @@ public class NoteManager : MonoBehaviour {
 		for(int i=0; i<_Notetime.Count;i++){
 			Notetime.Add(new WaitForSeconds(_Notetime[i]*SPB));
 		}
-
+		
 		Heart=Instantiate(Heart,HpPos,Quaternion.identity)as GameObject;
 		player=Instantiate(player,playerPos,Quaternion.identity)as GameObject;
 		playerFunc=player.GetComponent<Player>();
 		
-		Debug.Log("All info Set");
 		StartCoroutine(MusicStart(stagenum));
 	}
 	//Wait for some sec, Edit Objs, Edit Notes, Then Start the Game
 	IEnumerator MusicStart(int stagenum){
+		Objs[Objs.Count-1].SetActive(true);
+		Objs[Objs.Count-1].transform.position=new Vector3(0,0,0);
 		float iv=10f/NoteSpeed;//To sync the Note
 
 		//where notes generated	
@@ -206,7 +204,9 @@ public class NoteManager : MonoBehaviour {
 		yield return new WaitForSeconds(StartDelay);
 		//System.GC.Collect();
 		audiosource.Play();
+		//Debug.Log(Time.time);
 		StartCoroutine(ScoreSet());
+		StartCoroutine(Game_End());
 	}
 	//-------------------------------------------------------------------------------------
 
@@ -230,6 +230,10 @@ public class NoteManager : MonoBehaviour {
 			//Debug.Log(score);
 			yield return FrameTime;
 		}
+	}
+	IEnumerator Game_End(){
+		yield return new WaitForSeconds(258f);
+		is_GameEnd=true;
 	}
 	public void combo_manage(int mode){
 		if(mode==-1){
@@ -323,29 +327,104 @@ public class NoteManager : MonoBehaviour {
 		if(Mode==0){
 			yield return Objtime[Timecount];
 			//change this after complete
-			//Debug.Log(Objcount);
 			Objs[Objcount].SetActive(true);
 			Objs[Objcount].transform.position=RandomPlace[Random.Range(0,RandomPlace.Count)];
+			
 			//Objs[Objcount].transform.rotation=Quaternion.Euler(Objrot[Timecount]);
 		}else if(Mode==-1){
 			yield return Objtime[Timecount];
 
 			Objs[Objcount].SetActive(false);
+			
 		}
 		else if(Mode==1){
 			yield return Objtime[Timecount];
 
 			Objs[Objcount].SendMessage("Command_1");
 			
+			
 		}else if(Mode==2){
 			yield return Objtime[Timecount];
 
 			Objs[Objcount].SendMessage("Command_2");
 			
+			
 		}else if(Mode==3){
 			yield return Objtime[Timecount];
 
 			Objs[Objcount].SendMessage("Command_3");
+			
+			
+		}else if(Mode==4){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_4");
+			
+			
+		}else if(Mode==5){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_5");
+			
+		}else if(Mode==6){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_6");
+			
+			
+		}else if(Mode==7){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_7");
+			
+			
+		}else if(Mode==8){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_8");
+			
+			
+		}else if(Mode==9){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_9");
+		
+			
+		}else if(Mode==10){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_10");
+			
+			
+		}else if(Mode==11){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_11");
+			
+			
+		}else if(Mode==12){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_12");
+			
+			
+		}else if(Mode==13){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_13");
+			
+			
+		}else if(Mode==14){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_14");
+			
+			
+		}else if(Mode==15){
+			yield return Objtime[Timecount];
+
+			Objs[Objcount].SendMessage("Command_15");
+			
 			
 		}
 	}
