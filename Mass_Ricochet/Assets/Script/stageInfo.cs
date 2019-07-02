@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class stageInfo : MonoBehaviour {
+	public string song_name;
 	public List<GameObject> Objs=new List<GameObject>();
 	public float Notespeed;
 	public float BPM;

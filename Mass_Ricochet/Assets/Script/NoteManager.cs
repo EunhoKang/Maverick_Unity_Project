@@ -14,6 +14,7 @@ public class NoteManager : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
 	//Objects which needs for stage
 	public GameObject player;
 	public Vector3 playerPos;
@@ -62,6 +63,7 @@ public class NoteManager : MonoBehaviour {
 	//UI
 	public Text scoreText;
 	public Text diffText;
+	public GameObject PauseScreen;
 	//Set TimeScale, Generate Judge Line
 	void OnEnable() {
 		FrameTime=new WaitForSeconds(noteInterval*0.01f);
@@ -100,17 +102,15 @@ public class NoteManager : MonoBehaviour {
 		RandomPlace.Clear();
 	}
 	//Receive Stage Data, Pooling Notes & Objects, Caching Datas, Instantiate Objects, Start Music
-	public void StartSetting(AudioClip stagemusic,GameObject O){
+	public void StartSetting(AudioClip stagemusic,stageInfo O){
 		music=stagemusic;
 		audiosource.clip=music;
-		stageInfo T=O.GetComponent<stageInfo>();
-		_Objs=T.Objs;
-		NoteSpeed=T.Notespeed;
-		Name_Notetime=T.Name_Notetime;
-		Name_ObjCommand=T.Name_ObjCommand;
-		Name_Objtime=T.Name_Objtime;
-		Name_RandomPlace=T.Name_RandomPlace;
-
+		_Objs=O.Objs;
+		NoteSpeed=O.Notespeed;
+		Name_Notetime=O.Name_Notetime;
+		Name_ObjCommand=O.Name_ObjCommand;
+		Name_Objtime=O.Name_Objtime;
+		Name_RandomPlace=O.Name_RandomPlace;
 		TextAsset textAsset= Resources.Load<TextAsset>(Name_Notetime);
 		StringReader reader=new StringReader(textAsset.text);
 		int Max=int.Parse(reader.ReadLine());
@@ -152,8 +152,8 @@ public class NoteManager : MonoBehaviour {
 		for(int i=0;i<ObjCommand.Count;i++){
 			Objpos.Add(RandomPlace[Random.Range(0,RandomPlace.Count)]);
 		}	
-		SPB=60/T.BPM;
-		StartDelay=T.StartDelay;
+		SPB=60/O.BPM;
+		StartDelay=O.StartDelay;
 
 		for(int i=0; i<NotePoolCount;i++){
 			GameObject _obj=Instantiate(NoteType);
@@ -206,7 +206,7 @@ public class NoteManager : MonoBehaviour {
 		audiosource.Play();
 		//Debug.Log(Time.time);
 		StartCoroutine(ScoreSet());
-		StartCoroutine(Game_End());
+		StartCoroutine(Game_End(ObjCommand[ObjCommand.Count-1].x));
 	}
 	//-------------------------------------------------------------------------------------
 
@@ -215,6 +215,11 @@ public class NoteManager : MonoBehaviour {
 		if(Input.GetButton("Hit")){
 			StartingJudge();
 		}
+		/* 
+		if(Input.GetKeyDown(KeyCode.Escape){
+
+		}
+		*/
 	}
 	//add score
 	IEnumerator ScoreSet(){
@@ -227,13 +232,8 @@ public class NoteManager : MonoBehaviour {
 				if(amount<=625)
 					combo_manage(1);
 			}
-			//Debug.Log(score);
 			yield return FrameTime;
 		}
-	}
-	IEnumerator Game_End(){
-		yield return new WaitForSeconds(258f);
-		is_GameEnd=true;
 	}
 	public void combo_manage(int mode){
 		if(mode==-1){
@@ -274,7 +274,7 @@ public class NoteManager : MonoBehaviour {
 	public void reset_diffin_UI(){
 		diffText.text=null;
 	}
-	//Move Player according to Judge
+	//Move Player according to Judge---------------------------------------
 	public void Judge(bool isPerf){
 		if(isPerf){
 			playerFunc.StartMove(true);
@@ -428,4 +428,38 @@ public class NoteManager : MonoBehaviour {
 			
 		}
 	}
+	public void Game_Paused(){
+
+		Time.timeScale=0;
+	}
+	IEnumerator Game_End(float Timecount){
+		WaitForSeconds TempTime=new WaitForSeconds(1f);
+		Vector3 Temppos=new Vector3(-5.5f,0f,0f);
+		yield return Objtime[(int)Timecount];
+		is_GameEnd=true;
+		yield return TempTime;
+		for(int i=0;i<50;i++){
+			audiosource.volume-=0.02f;
+			yield return FrameTime;
+		}
+		audiosource.Stop();
+		for(int i=1;i<=50;i++){
+			player.transform.position=Vector3.Lerp(player.transform.position,Temppos,0.02f*i);
+			yield return FrameTime;
+		}
+		GameManager.gamemanager.LastPlayerScore=score;
+		Destroy(Heart);
+		Destroy(player);
+		for(int i=0; i<Notes.Count;i++){
+			Destroy(Notes[i]);
+		}
+		for(int i=0; i<Objs.Count;i++){
+			Destroy(Objs[i]);
+		}
+		GameManager.gamemanager.SceneChange("Result Scene");
+		NoteManager.instance=null;
+		Destroy(gameObject);
+		yield return null;
+	}
+
 }
