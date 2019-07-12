@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 			public stageInfo stagefile;
 		}
 		public GameObject ins;
+		private GameObject notemanagerins;
 		private NoteManager notemanager;
 		public AudioClip[] musics;
 		public List<stageInfo> stages=new List<stageInfo>();
@@ -67,9 +68,8 @@ public class GameManager : MonoBehaviour {
 
 		public void StartMusic(string song_name){
 			SceneDic[current_scene].SetActive(false);
-			if (NoteManager.instance == null)
-				ins=Instantiate(ins);
-			notemanager=ins.GetComponent<NoteManager>();
+			notemanagerins=Instantiate(ins);
+			notemanager=notemanagerins.GetComponent<NoteManager>();
 
 			current_scene="Playing";
 			notemanager.StartSetting(SongDic[song_name].music,SongDic[song_name].stagefile);
